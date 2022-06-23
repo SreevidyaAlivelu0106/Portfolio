@@ -35,6 +35,10 @@ def index():
 def sree_hobbies():
     return render_template('hobbies_template_sree.html', title="sree's Hobbies", url=os.getenv("URL"))
 
+@app.route('/timeline')
+def timeline():
+    return render_template('timeline.html', title="Timeline", url=os.getenv("URL"))
+
 
 @app.route('/api/timeline_post', methods=[ 'POST' ])
 def post_time_line_post():
@@ -47,17 +51,15 @@ def post_time_line_post():
 @app.route('/api/timeline_post', methods=[ 'GET'])
 def get_time_line_post():
     return {
-    'timeline _posts': [
+    'timeline_posts': [
         model_to_dict(p)
         for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
      }
 
+@app.route('/api/timeline_post', methods=[ 'DELETE'])
+def delete_time_line_post():
+    id = request.form['id']
+    TimelinePost.delete_by_id(id)
 
-@app.route('/api/timeline_post/<id>', methods=['DELETE'])
-def delete_time_line_post(id):
-    #p = TimelinePost.get(TimelinePost.id == id)
-
-    TimelinePost.delete(TimelinePost.id == id)
-    TimelinePost.commit()
-    return "deleted"
+    return "deleted successfully"

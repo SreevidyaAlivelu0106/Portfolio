@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Personal Portfolio">
+    <meta property="og:description" content="My Personal Portfolio">
+    <meta property="og:url" content="{{ url }}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
+    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
+    <title>Sree Vidya Alivelu</title>
+
+
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/venobox/venobox.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body id="page-top">
+
+ <div>
+   <center>
+    <form method="POST" id="form">
+    <p>
+     <div>
+      <label>Name:</label>
+       <input name="name" id="name" >
+    </div>
+    <p>
+    <p>
+    <div>
+      <label>Email:</label>
+      <input name="email" id="email" >
+   </div>
+   <p>
+   <p>
+   <div>
+     <label>Conent:</label>
+     <input name="content" id="content" >
+  </div>
+  <p>
+  <p>
+   <div>
+     <button>Post the details</button>
+   </div>
+   <p>
+  </form>
+
+  <table id="dbdata"></table>
+
+<script>
+  const form = document.getElementById('form');
+
+  form.addEventListener('submit', function(e) {
+   // Prevent default behavior:
+   e.preventDefault();
+   // Create payload as new FormData object:
+   const payload = new FormData(form);
+   // Post the payload using Fetch:
+   fetch('http://127.0.0.1:5000/api/timeline_post', {
+   method: 'POST',
+   body: payload,
+   })
+
+   fetch('http://127.0.0.1:5000/api/timeline_post', {
+   method: 'GET',
+ }).then(res => res.json())
+    .then(data => {
+
+      let tab =
+                  `<tr>
+                   <th>Name</th>&nbsp;
+                  <th>Email</th>&nbsp;
+                  <th>Content</th>&nbsp;
+                  </tr>`
+
+           // Loop to access all rows
+          for (let i = 0; i < data.timeline_posts.length; i++) {
+           tab += `<tr>
+            <td>${data.timeline_posts[i].name} </td>&nbsp;
+           <td>${data.timeline_posts[i].email}</td>&nbsp;
+           <td>${data.timeline_posts[i].content}</td>&nbsp;
+           </tr>`
+        }
+
+        document.getElementById("dbdata").innerHTML = tab;
+
+       //console.log("@@@@@@@@@@@")
+       //document.getElementById("dbdata").innerHTML = data.timeline_posts[0].name
+       //console.log("!!!!!!!!!!")
+      //console.log(data.timeline_posts.length)
+
+    })
+
+ })
+
+
+  </script>
+ </center>
+  </div>
+  </body>
+  </html>
