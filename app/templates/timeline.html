@@ -71,12 +71,12 @@
    // Create payload as new FormData object:
    const payload = new FormData(form);
    // Post the payload using Fetch:
-   fetch('http://127.0.0.1:5000/api/timeline_post', {
+   fetch('/api/timeline_post', {
    method: 'POST',
    body: payload,
-   })
+ }).then(f=>{
 
-   fetch('http://127.0.0.1:5000/api/timeline_post', {
+   fetch('/api/timeline_post', {
    method: 'GET',
  }).then(res => res.json())
     .then(data => {
@@ -91,8 +91,8 @@
            // Loop to access all rows
           for (let i = 0; i < data.timeline_posts.length; i++) {
            tab += `<tr>
-            <td>${data.timeline_posts[i].name} </td>&nbsp;
-           <td>${data.timeline_posts[i].email}</td>&nbsp;
+            <td>${data.timeline_posts[i].name} </td>
+           <td>${data.timeline_posts[i].email}</td>&nbsp;&nbsp;
            <td>${data.timeline_posts[i].content}</td>&nbsp;
            </tr>`
         }
@@ -107,6 +107,7 @@
     })
 
  })
+})
 
 
   </script>
