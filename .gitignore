@@ -1,0 +1,6 @@
+python-virtualenv/
+python3-virtualenv/
+.env
+.DS_Store
+ss.sh
+curl-test.sh
