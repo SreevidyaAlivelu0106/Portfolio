@@ -7,16 +7,16 @@ from app import app
 class AppTestCase(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
-    
+
     def test_home(self):
         response = self.client.get("/")
         assert response.status_code == 200
         html = response.get_data(as_text=True)
         assert "<title>Sree Vidya Alivelu</title>" in html
         # TODO Add more tests relating to the home page
-        assert '    <h5 class="title-left">\n      MLH Fellow (June, 2022 - Present)\n    </h5>' in html
+        assert '    <h5 class="title-left">\n      MLH Fellow - Production Engineering (June, 2022 - Present)\n    </h5>' in html
         assert '<iframe src="https://www.google.com/maps/d/embed?mid=1hutyxRuHGGheUAWBQe95sTdXGE3O00g&hl=en&ehbc=2E312F" width="1040" height="500">\n                            </iframe>' in html
-    
+
     def test_timeline(self):
         response = self.client.get("/api/timeline_post")
         assert response.status_code == 200
