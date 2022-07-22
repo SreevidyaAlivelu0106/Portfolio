@@ -1,6 +1,6 @@
 name: Run Tests
 on:
-  bpush:
+  push:
     branches:
       - main
   pull_request:
